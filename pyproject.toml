@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fakescan"
+version = "0.1.0"
+description = "Make a PDF look like it was printed and scanned"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "pdf2image>=1.16",
+    "Pillow>=10.0",
+    "img2pdf>=0.4",
+    "numpy>=1.24",
+]
+
+[project.scripts]
+fakescan = "fakescan.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/breitlip/fakescan"
+Repository = "https://github.com/breitlip/fakescan"
+Issues = "https://github.com/breitlip/fakescan/issues"

@@ -1,16 +1,41 @@
 """Command-line interface for fakescan."""
 
 import sys
+from importlib.metadata import version
 from pathlib import Path
 
 from .core import make_printed_pdf
 
 
+_HELP = """\
+Usage: fakescan [options] <input.pdf> [output.pdf]
+
+Make a PDF look like it was printed on paper and scanned back.
+
+Arguments:
+  input.pdf             Path to the source PDF.
+  output.pdf            Output path (default: <input>_scanned.pdf).
+
+Options:
+  --dpi N               Render resolution (default: 200).
+  -h, --help            Show this help message and exit.
+  --version             Show version and exit.
+
+Examples:
+  fakescan input.pdf
+  fakescan input.pdf output.pdf
+  fakescan input.pdf output.pdf --dpi 300
+"""
+
+
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: fakescan <input.pdf> [output.pdf] [--dpi N]")
-        print("       python -m fakescan <input.pdf> [output.pdf] [--dpi N]")
-        sys.exit(1)
+    if "--version" in sys.argv:
+        print(f"fakescan {version('fakescan')}")
+        sys.exit(0)
+
+    if len(sys.argv) < 2 or "-h" in sys.argv or "--help" in sys.argv:
+        print(_HELP, end="")
+        sys.exit(0 if "-h" in sys.argv or "--help" in sys.argv else 1)
 
     input_pdf = sys.argv[1]
     dpi = 200
